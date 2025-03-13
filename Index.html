@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced GUI Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            margin: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Advanced GUI Interface</h2>
+        <input type="text" id="userInput" placeholder="Enter something...">
+        <button onclick="showMessage()">Show Message</button>
+        <button onclick="clearMessage()">Clear</button>
+        <button onclick="changeBackground()">Change Background</button>
+        <button onclick="showCurrentTime()">Show Time</button>
+        <button onclick="generateRandomNumber()">Random Number</button>
+        <select id="colorSelector" onchange="changeTextColor()">
+            <option value="black">Black</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select>
+        <p id="message"></p>
+    </div>
+    
+    <script>
+        function showMessage() {
+            let input = document.getElementById('userInput').value;
+            if (input.trim() === "") {
+                document.getElementById('message').innerText = "Please enter something!";
+            } else {
+                document.getElementById('message').innerText = input;
+            }
+        }
+
+        function clearMessage() {
+            document.getElementById('message').innerText = "";
+            document.getElementById('userInput').value = "";
+        }
+
+        function changeBackground() {
+            document.body.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        }
+
+        function showCurrentTime() {
+            let now = new Date();
+            document.getElementById('message').innerText = "Current Time: " + now.toLocaleTimeString();
+        }
+
+        function generateRandomNumber() {
+            let randomNumber = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('message').innerText = "Random Number: " + randomNumber;
+        }
+
+        function changeTextColor() {
+            let color = document.getElementById('colorSelector').value;
+            document.getElementById('message').style.color = color;
+        }
+    </script>
+</body>
+</html>
