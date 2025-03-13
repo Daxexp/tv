@@ -1,102 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced GUI Interface</title>
+    <title>Open Live Stream in Default Player</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
+            overflow: hidden;
+            background: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/a77f76186960457.657f0d3451d77.jpg') no-repeat center center;
+            background-size: cover;
         }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .link-container {
             text-align: center;
+            position: relative;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
+        .button {
+            background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)), url('https://upload.wikimedia.org/wikipedia/en/8/89/2024_ICC_Men%27s_T20_World_Cup_logo.svg') no-repeat center center;
+            background-size: contain;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            background: #007bff;
+            transition: transform 0.3s, opacity 0.3s, filter 0.3s;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            animation: borderAnimation 3s infinite;
+            width: 200px;
+            height: 200px;
+            font-weight: bold;
+            font-family: 'Arial Black', Gadget, sans-serif;
+            font-size: 20px;
             color: white;
-            margin: 10px;
         }
-        button:hover {
-            background: #0056b3;
+        .button:hover {
+            transform: scale(1.05);
         }
-        input {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .button.hidden {
+            opacity: 0;
+            filter: brightness(50%);
         }
-        select {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .cricket-ball {
+            width: 60px;
+            height: 60px;
+            background: url('https://cdn.pixabay.com/photo/2014/03/25/15/41/cricket-297126_960_720.png') no-repeat center center;
+            background-size: contain;
+            position: absolute;
+            bottom: 0;
+            animation: bounce 1s infinite alternate;
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Advanced GUI Interface</h2>
-        <input type="text" id="userInput" placeholder="Enter something...">
-        <button onclick="showMessage()">Show Message</button>
-        <button onclick="clearMessage()">Clear</button>
-        <button onclick="changeBackground()">Change Background</button>
-        <button onclick="showCurrentTime()">Show Time</button>
-        <button onclick="generateRandomNumber()">Random Number</button>
-        <select id="colorSelector" onchange="changeTextColor()">
-            <option value="black">Black</option>
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-        </select>
-        <p id="message"></p>
-    </div>
-    
-    <script>
-        function showMessage() {
-            let input = document.getElementById('userInput').value;
-            if (input.trim() === "") {
-                document.getElementById('message').innerText = "Please enter something!";
-            } else {
-                document.getElementById('message').innerText = input;
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+        @keyframes borderAnimation {
+            0% {
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            }
+            25% {
+                box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0px 0px 30px rgba(0, 255, 0, 0.5);
+            }
+            75% {
+                box-shadow: 0px 0px 40px rgba(0, 0, 255, 0.5);
+            }
+            100% {
+                box-shadow: 0px 0px 50px rgba(255, 255, 0, 0.5);
             }
         }
 
-        function clearMessage() {
-            document.getElementById('message').innerText = "";
-            document.getElementById('userInput').value = "";
+        @media only screen and (max-width: 768px) {
+            body {
+                background-size: contain;
+            }
         }
-
-        function changeBackground() {
-            document.body.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        #loading-message {
+            display: none;
+            color: red;
+            font-weight: bold;
         }
+    </style>
+    <!-- Include dash.js library -->
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <!-- Include HLS.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <div class="link-container">
+        <div class="cricket-ball"></div>
+        <button class="button" onclick="playStream()">Play Live Stream</button>
+        <div id="player-container" style="width: 100%; max-width: 800px; display: none;">
+            <video id="videoPlayer" controls style="width: 100%;"></video>
+        </div>
+        <p id="loading-message">Please wait while the player is loading...</p>
+    </div>
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
 
-        function showCurrentTime() {
-            let now = new Date();
-            document.getElementById('message').innerText = "Current Time: " + now.toLocaleTimeString();
-        }
+        // Disable F12 key
+        document.onkeypress = function (event) {
+            event = (event || window.event);
+            if (event.keyCode === 123) {
+                return false;
+            }
+        };
 
-        function generateRandomNumber() {
-            let randomNumber = Math.floor(Math.random() * 100) + 1;
-            document.getElementById('message').innerText = "Random Number: " + randomNumber;
-        }
+        // Disable Ctrl+Shift+I
+        document.onkeydown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode === 73 && event.ctrlKey && event.shiftKey) {
+                alert("Developer tools are not allowed on this page.");
+                document.body.innerHTML = "";
+                return false;
+            }
+        };
 
-        function changeTextColor() {
-            let color = document.getElementById('colorSelector').value;
-            document.getElementById('message').style.color = color;
+        function playStream() {
+            var button = document.querySelector('.button');
+            var loadingMessage = document.getElementById('loading-message');
+            button.classList.add('hidden');
+            loadingMessage.style.display = 'block';
+
+            var url = '/playlist.m3u8'; // Request our custom playlist from the worker
+            var playerContainer = document.getElementById('player-container');
+            var videoPlayer = document.getElementById('videoPlayer');
+
+            if(Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(videoPlayer);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    playerContainer.style.display = 'block';
+                    loadingMessage.style.display = 'none';
+                    videoPlayer.play();
+                });
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                videoPlayer.src = url;
+                playerContainer.style.display = 'block';
+                loadingMessage.style.display = 'none';
+                videoPlayer.play();
+            } else {
+                alert("HLS is not supported on this browser.");
+            }
         }
     </script>
 </body>
