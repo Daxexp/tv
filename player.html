@@ -165,4 +165,18 @@
         });
 
         // Disable right-click
-       
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable certain key combinations
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'a' || e.key === 'p') || 
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
