@@ -316,19 +316,6 @@
                 emoji.textContent = '🌙';
             }
         }
-
-        function playChannel(channelId) {
-            fetch('channels.json')
-                .then(response => response.json())
-                .then(data => {
-                    const streamURL = data[channelId];
-                    if (streamURL) {
-                        window.location.href = `player.html?channel=${channelId}&stream=${encodeURIComponent(streamURL)}`;
-                    } else {
-                        alert('Stream not found.');
-                    }
-                });
-        }
     </script>
 </head>
 <body>
@@ -344,17 +331,17 @@
             <div class="channel">
                 <img src="https://www.slt.lk/sites/default/files/channel_images/sirasaTv_0.jpg" alt="Channel 1 Logo">
                 <h2>Channel 1</h2>
-                <button class="play-button" onclick="playChannel('channel1')">▶</button>
+                <button class="play-button" onclick="window.location.href='player.html?channel=Channel%201&stream=serve_stream.php?channel=channel1'">▶</button>
             </div>
             <div class="channel">
                 <img src="channel2_logo.png" alt="Channel 2 Logo">
                 <h2>Channel 2</h2>
-                <button class="play-button" onclick="playChannel('channel2')">▶</button>
+                <button class="play-button" onclick="window.location.href='player.html?channel=Channel%202&stream=serve_stream.php?channel=channel2'">▶</button>
             </div>
             <div class="channel">
                 <img src="channel3_logo.png" alt="Channel 3 Logo">
                 <h2>Channel 3</h2>
-                <button class="play-button" onclick="playChannel('channel3')">▶</button>
+                <button class="play-button" onclick="window.location.href='player.html?channel=Channel%203&stream=serve_stream.php?channel=channel3'">▶</button>
             </div>
         </div>
         <div class="footer">
