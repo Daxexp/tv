@@ -158,4 +158,11 @@
         document.getElementById('channelName').textContent = channelName;
         document.getElementById('streamSource').src = streamURL;
 
-        // Initialize the video
+        // Initialize the video player
+        var player = videojs('videoPlayer');
+        player.ready(function() {
+            player.play(); // Start playback when player is ready
+        });
+
+        // Disable right-click
+       
