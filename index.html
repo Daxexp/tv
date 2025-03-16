@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TV Channels</title>
     <style>
         body {
@@ -32,8 +32,15 @@
             text-align: center;
             font-size: 1.5rem;
             font-weight: bold;
-            position: relative;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
             transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .container {
+            padding-top: 60px; /* Add padding to avoid content being hidden behind the bar */
         }
 
         .theme-toggle {
@@ -270,7 +277,18 @@
 
         @media (max-width: 480px) {
             .channel {
-                width: 100%;
+                width: 100px; /* Smaller tiles for mobile view */
+            }
+
+            .channel h2 {
+                font-size: 14px; /* Smaller font size for channel names */
+            }
+
+            .channel .play-button {
+                width: 30px; /* Smaller play button for mobile view */
+                height: 30px;
+                font-size: 16px;
+                line-height: 30px;
             }
 
             .player {
@@ -286,6 +304,10 @@
 
             .bar {
                 font-size: 1.2rem;
+            }
+
+            .channels {
+                padding-left: 10px; /* Add padding to the left side for better spacing */
             }
         }
     </style>
@@ -397,7 +419,7 @@
                 <button class="play-button" onclick="playChannel('Music TV')">▶</button>
             </div>
             <div class="channel" data-key="SLT">
-                <img src="https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/twkwpt.png" alt="SLT Logo">
+                <img src="https://www.slt.lk/themes/slt/images-home/slt-log.svg" alt="SLT Logo">
                 <h2>SLT</h2>
                 <button class="play-button" onclick="playChannel('SLT')">▶</button>
             </div>
