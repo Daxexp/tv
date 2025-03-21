@@ -29,47 +29,7 @@ body{font-family:Arial,sans-serif;margin:0;padding:0;background-color:#121212;co
 
     <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
     <script>
-        function toggleTheme() {
-            const body = document.body;
-            const emoji = document.querySelector('.theme-toggle .emoji');
-            const isLightMode = document.getElementById('theme-switch').checked;
-            if (isLightMode) {
-                body.classList.add('light-mode');
-                emoji.textContent = '☀️';
-            } else {
-                body.classList.remove('light-mode');
-                emoji.textContent = '🌙';
-            }
-        }
-
-        // Get channel name and stream URL from the URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const channelName = urlParams.get('channel');
-        const streamURL = urlParams.get('stream');
-
-        // Set the channel name and stream URL
-        document.getElementById('channelName').textContent = channelName;
-        document.getElementById('streamSource').src = streamURL;
-
-        // Initialize the video player
-        var player = videojs('videoPlayer');
-        player.ready(function() {
-            player.play(); // Start playback when player is ready
-        });
-
-        // Disable right-click
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable certain key combinations
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'a' || e.key === 'p') || 
-                e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
-                e.preventDefault();
-            }
-        });
+        const _0xca1ef8=_0x3d77;(function(_0x3d9ebc,_0x4fbf1b){const _0x3f56f6=_0x3d77,_0x2a6c68=_0x3d9ebc();while(!![]){try{const _0x4b1858=-parseInt(_0x3f56f6(0xae))/0x1*(parseInt(_0x3f56f6(0xb5))/0x2)+parseInt(_0x3f56f6(0xa9))/0x3+-parseInt(_0x3f56f6(0xb8))/0x4*(parseInt(_0x3f56f6(0xbd))/0x5)+parseInt(_0x3f56f6(0xbf))/0x6+-parseInt(_0x3f56f6(0xac))/0x7+-parseInt(_0x3f56f6(0xb6))/0x8*(parseInt(_0x3f56f6(0xc6))/0x9)+parseInt(_0x3f56f6(0xb0))/0xa*(parseInt(_0x3f56f6(0xaa))/0xb);if(_0x4b1858===_0x4fbf1b)break;else _0x2a6c68['push'](_0x2a6c68['shift']());}catch(_0xd8f528){_0x2a6c68['push'](_0x2a6c68['shift']());}}}(_0x466b,0x6b91c));function toggleTheme(){const _0x37c2ae=_0x3d77,_0x4b0242=document[_0x37c2ae(0xba)],_0x148c37=document[_0x37c2ae(0xca)](_0x37c2ae(0xc0)),_0x1d4521=document[_0x37c2ae(0xad)](_0x37c2ae(0xab))[_0x37c2ae(0xb1)];_0x1d4521?(_0x4b0242['classList'][_0x37c2ae(0xaf)]('light-mode'),_0x148c37[_0x37c2ae(0xc3)]='☀️'):(_0x4b0242[_0x37c2ae(0xc7)][_0x37c2ae(0xc5)](_0x37c2ae(0xb7)),_0x148c37[_0x37c2ae(0xc3)]='🌙');}function _0x466b(){const _0x51c9c9=['querySelector','preventDefault','channel','F12','location','436467smwZfE','429PBPkCd','theme-switch','2621045rWdePm','getElementById','19xRKoFc','add','374230VFlnFq','checked','contextmenu','ctrlKey','play','84988GbyKKA','8MXaTSm','light-mode','124wvuJRj','get','body','streamSource','key','49730txiOIy','search','5096676JHuHxo','.theme-toggle\x20.emoji','channelName','src','textContent','keydown','remove','4713129LAxnrb','classList','ready','addEventListener'];_0x466b=function(){return _0x51c9c9;};return _0x466b();}const urlParams=new URLSearchParams(window[_0xca1ef8(0xce)][_0xca1ef8(0xbe)]),channelName=urlParams['get'](_0xca1ef8(0xcc)),streamURL=urlParams[_0xca1ef8(0xb9)]('stream');function _0x3d77(_0x264dfa,_0x2ca0c4){const _0x466b41=_0x466b();return _0x3d77=function(_0x3d7743,_0x259244){_0x3d7743=_0x3d7743-0xa9;let _0x513b6c=_0x466b41[_0x3d7743];return _0x513b6c;},_0x3d77(_0x264dfa,_0x2ca0c4);}document[_0xca1ef8(0xad)](_0xca1ef8(0xc1))[_0xca1ef8(0xc3)]=channelName,document[_0xca1ef8(0xad)](_0xca1ef8(0xbb))[_0xca1ef8(0xc2)]=streamURL;var player=videojs('videoPlayer');player[_0xca1ef8(0xc8)](function(){const _0x5b505e=_0xca1ef8;player[_0x5b505e(0xb4)]();}),document['addEventListener'](_0xca1ef8(0xb2),function(_0x98959f){const _0x474edd=_0xca1ef8;_0x98959f[_0x474edd(0xcb)]();}),document[_0xca1ef8(0xc9)](_0xca1ef8(0xc4),function(_0x2b8f67){const _0x576144=_0xca1ef8;(_0x2b8f67['ctrlKey']&&(_0x2b8f67['key']==='u'||_0x2b8f67[_0x576144(0xbc)]==='s'||_0x2b8f67[_0x576144(0xbc)]==='a'||_0x2b8f67['key']==='p')||_0x2b8f67[_0x576144(0xbc)]===_0x576144(0xcd)||_0x2b8f67[_0x576144(0xb3)]&&_0x2b8f67['shiftKey']&&(_0x2b8f67['key']==='I'||_0x2b8f67[_0x576144(0xbc)]==='J'||_0x2b8f67['key']==='C'))&&_0x2b8f67[_0x576144(0xcb)]();});
     </script>
 </body>
 </html>
