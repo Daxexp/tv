@@ -1,22 +1,54 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Check if the correct password is already stored in session storage
     if (sessionStorage.getItem('authenticated') !== 'true') {
-        // Prompt for the password
-        const password = prompt("Please enter the password to access the content:");
+        // Create the modal dialog
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = 0;
+        modal.style.left = 0;
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        modal.style.display = 'flex';
+        modal.style.flexDirection = 'column';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.zIndex = 9999;
 
-        // Define the correct password
-        const correctPassword = "your-password"; // Set your password here
+        // Create the password input
+        const input = document.createElement('input');
+        input.type = 'password';
+        input.placeholder = 'Enter password';
+        input.style.padding = '10px';
+        input.style.marginBottom = '10px';
+        input.style.fontSize = '16px';
 
-        // Check if the entered password is correct
-        if (password === correctPassword) {
-            // Store the authenticated state in session storage
-            sessionStorage.setItem('authenticated', 'true');
-            // Show a success message
-            alert("Welcome..! :)");
-        } else {
-            // If the password is incorrect, display an error message and hide the content
-            alert("Incorrect password. You do not have access to this content.");
-            document.body.innerHTML = "";
-        }
+        // Create the submit button
+        const button = document.createElement('button');
+        button.textContent = 'Submit';
+        button.style.padding = '10px 20px';
+        button.style.fontSize = '16px';
+        button.style.cursor = 'pointer';
+
+        // Add event listener to the button
+        button.addEventListener('click', function() {
+            const password = input.value;
+            const correctPassword = 'dass99'; // Set your password here
+
+            if (password === correctPassword) {
+                sessionStorage.setItem('authenticated', 'true');
+                alert('Welcome_Enjoy!');
+                document.body.removeChild(modal);
+            } else {
+                alert('Incorrect password. You do not have access to this content.');
+            }
+        });
+
+        // Append the input and button to the modal
+        modal.appendChild(input);
+        modal.appendChild(button);
+
+        // Append the modal to the body
+        document.body.appendChild(modal);
     }
 });
