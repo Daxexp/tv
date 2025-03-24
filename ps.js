@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
         input.style.padding = '10px';
         input.style.marginBottom = '10px';
         input.style.fontSize = '16px';
+        input.style.border = 'none';
+        input.style.borderRadius = '5px';
 
         // Create the submit button
         const button = document.createElement('button');
@@ -29,15 +31,19 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.padding = '10px 20px';
         button.style.fontSize = '16px';
         button.style.cursor = 'pointer';
+        button.style.border = 'none';
+        button.style.borderRadius = '5px';
+        button.style.backgroundColor = '#4CAF50';
+        button.style.color = '#fff';
 
         // Add event listener to the button
         button.addEventListener('click', function() {
             const password = input.value;
-            const correctPassword = 'dass99'; // Set your password here
+            const correctPassword = '123'; // Set your password here
 
             if (password === correctPassword) {
                 sessionStorage.setItem('authenticated', 'true');
-                alert('Welcome_Enjoy!');
+                alert('Correct password, enjoy!');
                 document.body.removeChild(modal);
             } else {
                 alert('Incorrect password. You do not have access to this content.');
