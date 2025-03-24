@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     timeElement.style.left = '10px';
     timeElement.style.fontFamily = 'Digital-7, Arial, sans-serif'; // Use a digital watch font
     timeElement.style.fontSize = '24px';
+    timeElement.style.color = 'green'; // Set the font color to green
     timeElement.style.zIndex = '1000';
     document.body.appendChild(timeElement);
 
@@ -14,13 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const now = new Date();
         const timeString = now.toLocaleTimeString();
         timeElement.textContent = timeString;
-
-        // Change font color based on theme
-        if (document.body.classList.contains('light-mode')) {
-            timeElement.style.color = '#000'; // Black for light mode
-        } else {
-            timeElement.style.color = '#fff'; // White for dark mode
-        }
     }
 
     // Update the time every second
@@ -28,10 +22,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initial update
     updateTime();
-
-    // Add event listener for theme change
-    const themeToggle = document.querySelector('.theme-toggle input');
-    if (themeToggle) {
-        themeToggle.addEventListener('change', updateTime);
-    }
 });
