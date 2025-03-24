@@ -7,29 +7,31 @@ document.addEventListener("DOMContentLoaded", function() {
     timeElement.style.fontFamily = 'Digital-7, Arial, sans-serif'; // Use a digital watch font
     timeElement.style.fontSize = '24px';
     timeElement.style.zIndex = '1000';
+    document.body.appendChild(timeElement);
 
     // Function to update the current time
     function updateTime() {
         const now = new Date();
         const timeString = now.toLocaleTimeString();
         timeElement.textContent = timeString;
-    }
 
-    // Function to update the font color based on the page mode
-    function updateFontColor() {
-        const isLightMode = document.body.classList.contains('light-mode');
-        timeElement.style.color = isLightMode ? '#000' : '#fff';
+        // Change font color based on theme
+        if (document.body.classList.contains('light-mode')) {
+            timeElement.style.color = '#000'; // Black for light mode
+        } else {
+            timeElement.style.color = '#fff'; // White for dark mode
+        }
     }
 
     // Update the time every second
     setInterval(updateTime, 1000);
 
-    // Update the font color whenever the mode changes
-    const observer = new MutationObserver(updateFontColor);
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-    // Initial updates
-    document.body.appendChild(timeElement);
+    // Initial update
     updateTime();
-    updateFontColor();
+
+    // Add event listener for theme change
+    const themeToggle = document.querySelector('.theme-toggle input');
+    if (themeToggle) {
+        themeToggle.addEventListener('change', updateTime);
+    }
 });
