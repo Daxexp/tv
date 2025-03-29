@@ -2,34 +2,329 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Stream</title>
-    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet">
-    <style>       
-body{font-family:Arial,sans-serif;margin:0;padding:0;background-color:#121212;color:#ffffff;transition:background-color .5s ease,color .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;overflow:hidden}.channel-name{font-size:2rem;font-weight:bold;margin-bottom:20px}.video-container{width:90%;max-width:1000px;margin:0 auto}#videoPlayer{width:100%;height:60vh}.back-button{position:absolute;top:20px;left:20px;background-color:rgba(220,53,69,.7);color:white;padding:5px 10px;font-size:.9rem;border:none;border-radius:5px;cursor:pointer;transition:background-color .3s;box-shadow:0 4px 8px rgba(0,0,0,.3)}.back-button:hover{background-color:rgba(200,35,51,.7)}.theme-toggle{position:absolute;top:20px;right:20px;display:flex;align-items:center;cursor:pointer}.theme-toggle input{display:none}.switch{display:inline-block;width:60px;height:34px;background-color:#ccc;border-radius:34px;position:relative;transition:background-color .3s}.switch::before{content:'';position:absolute;top:2px;left:2px;width:30px;height:30px;background-color:#ffffff;border-radius:50%;transition:transform .3s}input:checked+.switch{background-color:#4CAF50}input:checked+.switch::before{transform:translateX(26px)}.emoji{margin-left:10px;font-size:24px}.light-mode{background-color:#f0f0f0!important;color:#333!important}.light-mode .back-button{background-color:rgba(0,0,0,.7);color:#ffffff}.light-mode .back-button:hover{background-color:rgba(255,0,0,.7);color:#ffffff}.light-mode .theme-toggle .switch{background-color:#ccc}.light-mode .theme-toggle input:checked+.switch{background-color:#4CAF50}.light-mode .theme-toggle input:checked+.switch::before{background-color:#ffffff}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TV Channels</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            user-select: none; /* Disable text selection */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 60px; /* Add padding to avoid content being hidden behind the bar */
+        }
+
+        .bar {
+            width: 100%;
+            background-color: #ffffff;
+            color: #121212;
+            border-bottom: 2px solid #ff0000;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .theme-toggle input {
+            display: none;
+        }
+
+        .switch {
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            background-color: #ccc;
+            border-radius: 34px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 30px;
+            height: 30px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        input:checked + .switch {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .switch::before {
+            transform: translateX(26px);
+        }
+
+        .emoji {
+            margin-left: 10px;
+            font-size: 24px;
+        }
+
+        .channels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .channel {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .channel:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .channel img {
+            width: 100%;
+            height: auto;
+        }
+
+        .channel h2 {
+            margin: 10px 0;
+        }
+
+        .channel .play-button {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            line-height: 50px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s, transform 0.5s, box-shadow 0.5s;
+            opacity: 0;
+        }
+
+        .channel:hover .play-button {
+            display: block;
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            opacity: 1;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .player-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ffffff;
+            color: #121212;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #ff0000;
+            color: #ffffff;
+        }
+
+        .player {
+            width: 80%;
+            max-width: 800px;
+            height: 450px;
+            background-color: #000;
+        }
+
+        /* Light mode styles */
+        .light-mode {
+            background-color: #f0f0f0 !important;
+            color: #333 !important;
+        }
+
+        .light-mode .container {
+            background-color: transparent;
+        }
+
+        .light-mode .bar {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .light-mode .channel {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .light-mode .channel:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .light-mode .footer {
+            color: #666;
+        }
+
+        .light-mode .theme-toggle .switch {
+            background-color: #ccc;
+        }
+
+        .light-mode .theme-toggle input:checked + .switch {
+            background-color: #4CAF50;
+        }
+
+        .light-mode .theme-toggle input:checked + .switch::before {
+            background-color: #ffffff;
+        }
+
+        .light-mode .player-section {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .light-mode .back-button {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .light-mode .back-button:hover {
+            background-color: #ff0000;
+            color: #ffffff;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .channel {
+                width: 45%;
+            }
+
+            .player {
+                width: 95%;
+                height: auto;
+            }
+
+            .back-button {
+                width: 80px;
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .channel {
+                width: 100px; /* Smaller tiles for mobile view */
+            }
+
+            .channel h2 {
+                font-size: 14px; /* Smaller font size for channel names */
+            }
+
+            .channel .play-button {
+                width: 30px; /* Smaller play button for mobile view */
+                height: 30px;
+                font-size: 16px;
+                line-height: 30px;
+            }
+
+            .player {
+                width: 100%;
+                height: auto;
+            }
+
+            .back-button {
+                width: 60px;
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .bar {
+                font-size: 1.2rem;
+            }
+
+            .switch {
+                width: 40px; /* Smaller switch for mobile view */
+                height: 20px;
+            }
+
+            .switch::before {
+                width: 18px;
+                height: 18px;
+            }
+
+            .emoji {
+                font-size: 18px; /* Smaller emoji for mobile view */
+                margin-left: 5px; /* Adjust margin for better alignment */
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="channel-name" id="channelName"></div>
-    <div class="video-container">
-        <video id="videoPlayer" class="video-js vjs-default-skin" controls preload="auto">
-            <source id="streamSource" type="application/x-mpegURL">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <button class="back-button" onclick="window.location.href= &apos;\x69\x6E\x64\x65\x78\x2E\x68\x74\x6D\x6C&apos;">
-        Go Back
-    </button>
-
-    <div class="theme-toggle">
-        <input type="checkbox" id="theme-switch" onchange="toggleTheme()" />
-        <label class="switch" for="theme-switch"></label>
-        <span class="emoji">🌙</span>
-    </div>
-
-    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
-    <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"></script>
-    <script>
-       var _$_60e9=["\x62\x6F\x64\x79","\x2E\x74\x68\x65\x6D\x65\x2D\x74\x6F\x67\x67\x6C\x65\x20\x2E\x65\x6D\x6F\x6A\x69","\x71\x75\x65\x72\x79\x53\x65\x6C\x65\x63\x74\x6F\x72","\x63\x68\x65\x63\x6B\x65\x64","\x74\x68\x65\x6D\x65\x2D\x73\x77\x69\x74\x63\x68","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x6C\x69\x67\x68\x74\x2D\x6D\x6F\x64\x65","\x61\x64\x64","\x63\x6C\x61\x73\x73\x4C\x69\x73\x74","\x74\x65\x78\x74\x43\x6F\x6E\x74\x65\x6E\x74","\u2600\uFE0F","\x72\x65\x6D\x6F\x76\x65","\uD83C\uDF19","\x73\x65\x61\x72\x63\x68","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x63\x68\x61\x6E\x6E\x65\x6C","\x67\x65\x74","\x73\x74\x72\x65\x61\x6D","\x63\x68\x61\x6E\x6E\x65\x6C\x4E\x61\x6D\x65","\x73\x72\x63","\x73\x74\x72\x65\x61\x6D\x53\x6F\x75\x72\x63\x65","\x76\x69\x64\x65\x6F\x50\x6C\x61\x79\x65\x72","\x70\x6C\x61\x79","\x72\x65\x61\x64\x79","\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72","\x6B\x65\x79\x64\x6F\x77\x6E","\x63\x74\x72\x6C\x4B\x65\x79","\x6B\x65\x79","\x75","\x73","\x61","\x70","\x46\x31\x32","\x73\x68\x69\x66\x74\x4B\x65\x79","\x49","\x4A","\x43"];function toggleTheme(){const _0x1C837=document[_$_60e9[0]];const _0x1C843=document[_$_60e9[2]](_$_60e9[1]);const _0x1C84F=document[_$_60e9[5]](_$_60e9[4])[_$_60e9[3]];if(_0x1C84F){_0x1C837[_$_60e9[8]][_$_60e9[7]](_$_60e9[6]);_0x1C843[_$_60e9[9]]= _$_60e9[10]}else {_0x1C837[_$_60e9[8]][_$_60e9[11]](_$_60e9[6]);_0x1C843[_$_60e9[9]]= _$_60e9[12]}}const urlParams= new URLSearchParams(window[_$_60e9[14]][_$_60e9[13]]);const channelName=urlParams[_$_60e9[16]](_$_60e9[15]);const streamURL=urlParams[_$_60e9[16]](_$_60e9[17]);document[_$_60e9[5]](_$_60e9[18])[_$_60e9[9]]= channelName;document[_$_60e9[5]](_$_60e9[20])[_$_60e9[19]]= streamURL;var player=videojs(_$_60e9[21]);player[_$_60e9[23]](function(){player[_$_60e9[22]]()});document[_$_60e9[26]](_$_60e9[24],function(_0x1C82B){_0x1C82B[_$_60e9[25]]()});document[_$_60e9[26]](_$_60e9[27],function(_0x1C82B){if(_0x1C82B[_$_60e9[28]]&& (_0x1C82B[_$_60e9[29]]=== _$_60e9[30]|| _0x1C82B[_$_60e9[29]]=== _$_60e9[31]|| _0x1C82B[_$_60e9[29]]=== _$_60e9[32]|| _0x1C82B[_$_60e9[29]]=== _$_60e9[33])|| _0x1C82B[_$_60e9[29]]=== _$_60e9[34]|| (_0x1C82B[_$_60e9[28]]&& _0x1C82B[_$_60e9[35]]&& (_0x1C82B[_$_60e9[29]]=== _$_60e9[36]|| _0x1C82B[_$_60e9[29]]=== _$_60e9[37]|| _0x1C82B[_$_60e9[29]]=== _$_60e9[38]))){_0x1C82B[_$_60e9[25]]()}})</script>
+    <!-- The content will be dynamically generated by the JavaScript file -->
+    <script src="ps.js"></script>
+    <script src="ui.js"></script>
+    <script src="info.js"></script>
+    <script src="tv.js"></script>
 </body>
 </html>
