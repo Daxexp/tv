@@ -26,18 +26,18 @@ function showSuccessNotification(message) {
     // Create a div element for the notification
     const notification = document.createElement('div');
     notification.style.position = 'fixed';
-    notification.style.bottom = '20px';
+    notification.style.top = '20px';  // Position at the top
     notification.style.left = '50%';
-    notification.style.transform = 'translateX(-50%)';
+    notification.style.transform = 'translateX(-50%)'; // Center horizontally
     notification.style.backgroundColor = 'green';
     notification.style.color = 'white';
-    notification.style.padding = '10px 20px';
-    notification.style.borderRadius = '5px';
-    notification.style.fontSize = '16px';
+    notification.style.padding = '20px 40px';  // Increased padding for bigger box
+    notification.style.borderRadius = '10px';
+    notification.style.fontSize = '20px';  // Larger font size for better visibility
     notification.style.fontFamily = 'Arial, sans-serif';
     notification.style.zIndex = '9999';
     notification.style.opacity = '0';
-    notification.style.transition = 'opacity 0.5s ease-in-out, bottom 0.5s ease-in-out';
+    notification.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
     notification.innerHTML = message;
 
     // Append the notification to the body
@@ -46,16 +46,16 @@ function showSuccessNotification(message) {
     // Trigger animation by changing opacity and position
     setTimeout(() => {
         notification.style.opacity = '1';
-        notification.style.bottom = '80px';
+        notification.style.top = '100px';  // Move it slightly down after animation starts
     }, 10);
 
-    // Hide the notification after 3 seconds
+    // Hide the notification after 6 seconds
     setTimeout(() => {
         notification.style.opacity = '0';
-        notification.style.bottom = '20px';
+        notification.style.top = '20px';
         // Remove the notification from the DOM after the animation
         setTimeout(() => {
             notification.remove();
         }, 500);
-    }, 3000);
+    }, 6000);  // Stay visible for 6 seconds
 }
