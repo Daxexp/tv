@@ -385,7 +385,7 @@ const channels = {
     "Verbum TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/verbum-tv.png",
     "ChannelEye": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/fhuhab.png",
     "AdaDerana24x7": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/ada-derana-24.png",
-    "TNL": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/012.png",
+    "TNL": "https://i.imgur.com/A5i37CK.png",
     "TV1": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/vjtiwc.png",
     "Shakthi TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/dmikwb.png",
     "Siyatha TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/twchnq.png",
