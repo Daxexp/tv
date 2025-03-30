@@ -291,18 +291,18 @@ style.textContent = `
 
     @media (max-width: 480px) {
         .channel {
-            width: 120px; /* Increase tile size for mobile view */
+            width: 100px; /* Smaller tiles for mobile view */
         }
 
         .channel h2 {
-            font-size: 16px; /* Slightly larger font size for channel names */
+            font-size: 14px; /* Smaller font size for channel names */
         }
 
         .channel .play-button {
-            width: 40px; /* Slightly larger play button for mobile view */
-            height: 40px;
-            font-size: 20px;
-            line-height: 40px;
+            width: 30px; /* Smaller play button for mobile view */
+            height: 30px;
+            font-size: 16px;
+            line-height: 30px;
         }
 
         .player {
