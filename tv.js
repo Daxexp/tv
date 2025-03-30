@@ -316,6 +316,16 @@ style.textContent = `
             font-size: 1.2rem;
         }
 
+        .switch {
+            width: 50px; /* Slightly smaller switch for mobile view */
+            height: 28px;
+        }
+
+        .switch::before {
+            width: 26px;
+            height: 26px;
+        }
+
         .emoji {
             font-size: 18px; /* Smaller emoji for mobile view */
             margin-left: 5px; /* Adjust margin for better alignment */
