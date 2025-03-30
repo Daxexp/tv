@@ -371,7 +371,7 @@ channelsDiv.className = 'channels';
 
 const channels = {
     "TV Derana": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/006.png",
-    "Sirasa TV": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/008.png",
+    "Sirasa TV": "https://images.sgp2.ott.kaltura.com/Service.svc/GetImage/p/3065/entry_id/54906ac67de5452a84820babf8e98bd0_1/version/0",
     "Hiru TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/hiru-tv.png",
     "Swarnawahini": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/007.png",
     "ITN": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/004_200x200.png",
