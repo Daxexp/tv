@@ -316,16 +316,6 @@ style.textContent = `
             font-size: 1.2rem;
         }
 
-        .switch {
-            width: 40px; /* Smaller switch for mobile view */
-            height: 20px;
-        }
-
-        .switch::before {
-            width: 18px;
-            height: 18px;
-        }
-
         .emoji {
             font-size: 18px; /* Smaller emoji for mobile view */
             margin-left: 5px; /* Adjust margin for better alignment */
@@ -441,7 +431,6 @@ channelsDiv.appendChild(createChannel('Wasantham TV', channels["Wasantham TV"], 
 channelsDiv.appendChild(createChannel('Charana TV', channels["Charana TV"], 'Charana TV'));
 channelsDiv.appendChild(createChannel('Nethra TV', channels["Nethra TV"], 'Nethra TV'));
 channelsDiv.appendChild(createChannel('Buddhist TV', channels["Buddhist TV"], 'Buddhist TV'));
-
 
 container.appendChild(channelsDiv);
 body.appendChild(container);
