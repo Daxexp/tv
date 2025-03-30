@@ -35,6 +35,8 @@ style.textContent = `
         margin: 0 auto;
         padding: 20px;
         padding-top: 60px; /* Add padding to avoid content being hidden behind the bar */
+        display: flex;
+        justify-content: center; /* Center the container */
     }
 
     .bar {
@@ -106,7 +108,9 @@ style.textContent = `
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
-        justify-content: center;
+        justify-content: center; /* Center the channels */
+        align-items: center; /* Center the channels vertically */
+        width: 100%; /* Ensure the channels take full width */
     }
 
     .channel {
