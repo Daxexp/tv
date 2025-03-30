@@ -322,8 +322,13 @@ style.textContent = `
         }
 
         .switch::before {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
+            top: 2px; /* Adjust top position for centered alignment */
+        }
+
+        input:checked + .switch::before {
+            transform: translateX(22px); /* Adjust translation for smaller width */
         }
 
         .emoji {
