@@ -290,6 +290,13 @@ style.textContent = `
     }
 
     @media (max-width: 480px) {
+        .channels {
+            flex-direction: column; /* Align channels in a column for mobile view */
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
         .channel {
             width: 100px; /* Smaller tiles for mobile view */
         }
