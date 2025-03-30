@@ -290,16 +290,8 @@ style.textContent = `
     }
 
     @media (max-width: 480px) {
-        .channels {
-            gap: 10px;
-        }
-
         .channel {
-            width: calc(100% / 3 - 10px); /* 3 channels in one line */
-        }
-
-        .channel img {
-            height: 120px; /* Increase height of channel images */
+            width: 100px; /* Smaller tiles for mobile view */
         }
 
         .channel h2 {
