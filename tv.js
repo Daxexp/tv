@@ -370,16 +370,16 @@ const channelsDiv = document.createElement('div');
 channelsDiv.className = 'channels';
 
 const channels = {
-    "TV Derana": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/derana.png",
-    "Sirasa TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/ucihva.png",
+    "TV Derana": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/006.png",
+    "Sirasa TV": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/008.png",
     "Hiru TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/hiru-tv.png",
-    "Swarnawahini": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/ddcjju.png",
-    "ITN": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/ducchq.png",
+    "Swarnawahini": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/007.png",
+    "ITN": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/004_200x200.png",
     "Star TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/vztqoe.png",
     "Music TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/music-television.png",
     "SLT": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/twkwpt.png",
     "Pragna TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/pragna-tv.png",
-    "Rupawahini": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/rupavahini.png",
+    "Rupawahini": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/002.png",
     "Shardha TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/mvfdxj.png",
     "Jaya TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/ppkeyw.png",
     "Verbum TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/verbum-tv.png",
@@ -389,7 +389,7 @@ const channels = {
     "TV1": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/vjtiwc.png",
     "Shakthi TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/dmikwb.png",
     "Siyatha TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/twchnq.png",
-    "Wasantham TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/ngfsik.png",
+    "Wasantham TV": "https://d3hhg1rtk1dmrv.cloudfront.net/dialogdigitizationservices/productcatalogue/dtv/4/005.png",
     "Charana TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/djwqoh.png",
     "Nethra TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/udbacm.png",
     "Buddhist TV": "https://mobond.yuppcdn.net/peotvgo/320/280/content/common/channel/logos/the-buddhist.png"
