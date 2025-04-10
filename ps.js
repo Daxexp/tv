@@ -1,1 +1,78 @@
-var _$_6194=["\x44\x4F\x4D\x43\x6F\x6E\x74\x65\x6E\x74\x4C\x6F\x61\x64\x65\x64","\x61\x75\x74\x68\x65\x6E\x74\x69\x63\x61\x74\x65\x64","\x67\x65\x74\x49\x74\x65\x6D","\x74\x72\x75\x65","\x50\x6C\x65\x61\x73\x65\x20\x65\x6E\x74\x65\x72\x20\x74\x68\x65\x20\x70\x61\x73\x73\x77\x6F\x72\x64\x20\x74\x6F\x20\x61\x63\x63\x65\x73\x73\x20\x74\x68\x65\x20\x63\x6F\x6E\x74\x65\x6E\x74\x3A","\x64\x61\x73\x73\x39\x39","\x73\x65\x74\x49\x74\x65\x6D","\x57\x65\x6C\x63\x6F\x6D\x65\x5F\x65\x6E\x6A\x6F\x79\x21","\x49\x6E\x63\x6F\x72\x72\x65\x63\x74\x20\x70\x61\x73\x73\x77\x6F\x72\x64\x2E\x20\x59\x6F\x75\x20\x64\x6F\x20\x6E\x6F\x74\x20\x68\x61\x76\x65\x20\x61\x63\x63\x65\x73\x73\x20\x74\x6F\x20\x74\x68\x69\x73\x20\x63\x6F\x6E\x74\x65\x6E\x74\x2E","\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C","\x62\x6F\x64\x79","","\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72","\x64\x69\x76","\x63\x72\x65\x61\x74\x65\x45\x6C\x65\x6D\x65\x6E\x74","\x70\x6F\x73\x69\x74\x69\x6F\x6E","\x73\x74\x79\x6C\x65","\x66\x69\x78\x65\x64","\x74\x6F\x70","\x32\x30\x70\x78","\x6C\x65\x66\x74","\x35\x30\x25","\x74\x72\x61\x6E\x73\x66\x6F\x72\x6D","\x74\x72\x61\x6E\x73\x6C\x61\x74\x65\x58\x28\x2D\x35\x30\x25\x29","\x62\x61\x63\x6B\x67\x72\x6F\x75\x6E\x64\x43\x6F\x6C\x6F\x72","\x72\x67\x62\x61\x28\x30\x2C\x20\x31\x32\x38\x2C\x20\x30\x2C\x20\x30\x2E\x37\x29","\x63\x6F\x6C\x6F\x72","\x77\x68\x69\x74\x65","\x70\x61\x64\x64\x69\x6E\x67","\x32\x30\x70\x78\x20\x34\x30\x70\x78","\x62\x6F\x72\x64\x65\x72\x52\x61\x64\x69\x75\x73","\x31\x30\x70\x78","\x66\x6F\x6E\x74\x53\x69\x7A\x65","\x66\x6F\x6E\x74\x46\x61\x6D\x69\x6C\x79","\x41\x72\x69\x61\x6C\x2C\x20\x73\x61\x6E\x73\x2D\x73\x65\x72\x69\x66","\x7A\x49\x6E\x64\x65\x78","\x39\x39\x39\x39","\x6F\x70\x61\x63\x69\x74\x79","\x30","\x74\x72\x61\x6E\x73\x69\x74\x69\x6F\x6E","\x6F\x70\x61\x63\x69\x74\x79\x20\x30\x2E\x35\x73\x20\x65\x61\x73\x65\x2D\x69\x6E\x2D\x6F\x75\x74\x2C\x20\x74\x6F\x70\x20\x30\x2E\x35\x73\x20\x65\x61\x73\x65\x2D\x69\x6E\x2D\x6F\x75\x74","\x61\x70\x70\x65\x6E\x64\x43\x68\x69\x6C\x64","\x31","\x31\x30\x30\x70\x78","\x72\x65\x6D\x6F\x76\x65"];document[_$_6194[12]](_$_6194[0],function(){if(sessionStorage[_$_6194[2]](_$_6194[1])!== _$_6194[3]){const _0x1732E=prompt(_$_6194[4]);const _0x172CF=_$_6194[5];if(_0x1732E=== _0x172CF){sessionStorage[_$_6194[6]](_$_6194[1],_$_6194[3]);showSuccessNotification(_$_6194[7])}else {alert(_$_6194[8]);document[_$_6194[10]][_$_6194[9]]= _$_6194[11]}}});function showSuccessNotification(_0x1738D){const _0x173EC=document[_$_6194[14]](_$_6194[13]);_0x173EC[_$_6194[16]][_$_6194[15]]= _$_6194[17];_0x173EC[_$_6194[16]][_$_6194[18]]= _$_6194[19];_0x173EC[_$_6194[16]][_$_6194[20]]= _$_6194[21];_0x173EC[_$_6194[16]][_$_6194[22]]= _$_6194[23];_0x173EC[_$_6194[16]][_$_6194[24]]= _$_6194[25];_0x173EC[_$_6194[16]][_$_6194[26]]= _$_6194[27];_0x173EC[_$_6194[16]][_$_6194[28]]= _$_6194[29];_0x173EC[_$_6194[16]][_$_6194[30]]= _$_6194[31];_0x173EC[_$_6194[16]][_$_6194[32]]= _$_6194[19];_0x173EC[_$_6194[16]][_$_6194[33]]= _$_6194[34];_0x173EC[_$_6194[16]][_$_6194[35]]= _$_6194[36];_0x173EC[_$_6194[16]][_$_6194[37]]= _$_6194[38];_0x173EC[_$_6194[16]][_$_6194[39]]= _$_6194[40];_0x173EC[_$_6194[9]]= _0x1738D;document[_$_6194[10]][_$_6194[41]](_0x173EC);setTimeout(()=>{_0x173EC[_$_6194[16]][_$_6194[37]]= _$_6194[42];_0x173EC[_$_6194[16]][_$_6194[18]]= _$_6194[43]},10);setTimeout(()=>{_0x173EC[_$_6194[16]][_$_6194[37]]= _$_6194[38];_0x173EC[_$_6194[16]][_$_6194[18]]= _$_6194[19];setTimeout(()=>{_0x173EC[_$_6194[44]]()},500)},4000)}
+document.addEventListener("DOMContentLoaded", function () {
+    // Redirect URL for incorrect password
+    const exitURL = "https://example.com"; // Replace with your desired exit page
+
+    // Maximum number of attempts
+    const maxAttempts = 3;
+    let attempts = 0;
+
+    // Check if the correct password is already stored in session storage
+    if (sessionStorage.getItem("authenticated") !== "true") {
+        while (attempts < maxAttempts) {
+            // Prompt for the password
+            const password = prompt("Please enter the password to access the content:");
+
+            // Define the hashed version of the correct password
+            const correctPasswordHash = "e4f04c4b8f3bafc4c2a4e5c4bb6b3e7a"; // Precomputed hash for "dass99"
+            
+            // Compute the hash of the entered password
+            const enteredPasswordHash = hashPassword(password);
+
+            // Check if the entered password hash matches the correct hash
+            if (enteredPasswordHash === correctPasswordHash) {
+                // Store the authenticated state in session storage
+                sessionStorage.setItem("authenticated", "true");
+                // Show a success message with notification animation
+                showSuccessNotification("Welcome_enjoy!");
+                break;
+            } else {
+                attempts++;
+                alert(`Incorrect password. You have ${maxAttempts - attempts} attempt(s) left.`);
+                if (attempts >= maxAttempts) {
+                    alert("Too many incorrect attempts. Exiting the website.");
+                    sessionStorage.clear();
+                    window.location.href = exitURL; // Redirect to the exit page
+                }
+            }
+        }
+    }
+});
+
+// Function to create and show the success notification
+function showSuccessNotification(message) {
+    const notification = document.createElement("div");
+    notification.style.position = "fixed";
+    notification.style.top = "20px";
+    notification.style.left = "50%";
+    notification.style.transform = "translateX(-50%)";
+    notification.style.backgroundColor = "rgba(0, 128, 0, 0.7)";
+    notification.style.color = "white";
+    notification.style.padding = "20px 40px";
+    notification.style.borderRadius = "10px";
+    notification.style.fontSize = "20px";
+    notification.style.fontFamily = "Arial, sans-serif";
+    notification.style.zIndex = "9999";
+    notification.style.opacity = "0";
+    notification.style.transition = "opacity 0.5s ease-in-out, top 0.5s ease-in-out";
+    notification.innerHTML = message;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.opacity = "1";
+        notification.style.top = "100px";
+    }, 10);
+
+    setTimeout(() => {
+        notification.style.opacity = "0";
+        notification.style.top = "20px";
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 4000);
+}
+
+// Function to hash the password (simple example using MD5)
+function hashPassword(password) {
+    return CryptoJS.MD5(password).toString();
+}
