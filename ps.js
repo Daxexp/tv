@@ -11,9 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show a success message with notification animation
             showSuccessNotification("Welcome_enjoy!");
         } else {
-            // If the password is incorrect, display an error message and exit the site
-            alert("Incorrect password. You do not have access to this content.");
-            window.location.href = "about:blank"; // Redirect to a blank page
+            // Show an error notification and exit the site
+            showErrorNotification("Incorrect password. You do not have access to this content.");
+            setTimeout(() => {
+                window.location.href = "about:blank"; // Redirect to a blank page after the error notification
+            }, 3000); // Delay for 3 seconds to allow the user to see the notification
         }
     }
 });
@@ -28,12 +30,22 @@ function verifyPassword(inputPassword) {
 
 // Function to create and show the success notification
 function showSuccessNotification(message) {
+    createNotification(message, "rgba(0, 128, 0, 0.7)"); // Green background for success
+}
+
+// Function to create and show the error notification
+function showErrorNotification(message) {
+    createNotification(message, "rgba(255, 0, 0, 0.7)"); // Red background for error
+}
+
+// Function to create and show a notification
+function createNotification(message, backgroundColor) {
     const notification = document.createElement('div');
     notification.style.position = 'fixed';
-    notification.style.top = '20px'; 
+    notification.style.top = '20px';
     notification.style.left = '50%';
     notification.style.transform = 'translateX(-50%)';
-    notification.style.backgroundColor = 'rgba(0, 128, 0, 0.7)';
+    notification.style.backgroundColor = backgroundColor;
     notification.style.color = 'white';
     notification.style.padding = '20px 40px';
     notification.style.borderRadius = '10px';
@@ -48,7 +60,7 @@ function showSuccessNotification(message) {
 
     setTimeout(() => {
         notification.style.opacity = '1';
-        notification.style.top = '100px';
+        notification.style.top = '100px'; // Move it slightly down after animation starts
     }, 10);
 
     setTimeout(() => {
@@ -56,6 +68,6 @@ function showSuccessNotification(message) {
         notification.style.top = '20px';
         setTimeout(() => {
             notification.remove();
-        }, 500);
-    }, 4000);
+        }, 500); // Delay to allow animation to complete
+    }, 3000); // Stay visible for 3 seconds
 }
