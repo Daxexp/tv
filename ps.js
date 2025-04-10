@@ -4,14 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Prompt for the password
         const password = prompt("Please enter the password to access the content:");
 
-        // Define the hashed password (SHA-256 hash for "dass99")
-        const correctPasswordHash = "5b0697d9a9a8f3c5dbb6b5bcb54e3b6d6e2a5c1d0d3d5c7e9843e94c1d5a1e75";
-
-        // Hash the entered password using a hashing function
-        const hashedInput = hashPassword(password);
-
-        // Check if the entered password's hash matches the correct hash
-        if (hashedInput === correctPasswordHash) {
+        // Verify the password
+        if (verifyPassword(password)) {
             // Store the authenticated state in session storage
             sessionStorage.setItem('authenticated', 'true');
             // Show a success message with notification animation
@@ -24,23 +18,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Function to hash the password using SHA-256
-function hashPassword(password) {
-    // Use the SubtleCrypto API to create a SHA-256 hash
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    return crypto.subtle.digest("SHA-256", data).then(hashBuffer => {
-        // Convert the hash to a hexadecimal string
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-    });
+// Function to verify the password
+function verifyPassword(inputPassword) {
+    // Encoded password (Base64 encoded)
+    const encodedPassword = "ZGFzczk5"; // Base64 for "dass99"
+    const decodedPassword = atob(encodedPassword); // Decode the password
+    return inputPassword === decodedPassword;
 }
 
-// Function to create and show the success notification (same as before)
+// Function to create and show the success notification
 function showSuccessNotification(message) {
     const notification = document.createElement('div');
     notification.style.position = 'fixed';
-    notification.style.top = '20px';
+    notification.style.top = '20px'; 
     notification.style.left = '50%';
     notification.style.transform = 'translateX(-50%)';
     notification.style.backgroundColor = 'rgba(0, 128, 0, 0.7)';
