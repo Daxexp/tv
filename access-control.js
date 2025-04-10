@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!document.referrer || !document.referrer.startsWith(authorizedReferrer)) {
         // If the referrer is invalid, check for session-based authentication
         if (sessionStorage.getItem('access_granted') !== 'true') {
+            // Redirect immediately if no valid session is found
             window.location.href = authorizedReferrer; // Redirect to homepage
             return;
         }
