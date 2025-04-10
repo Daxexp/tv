@@ -11,9 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show a success message with notification animation
             showSuccessNotification("Welcome_enjoy!");
         } else {
-            // If the password is incorrect, display an error message and exit the site
-            showErrorNotification("Incorrect password!");
-            setTimeout(() => {
             window.location.href = "about:blank"; // Redirect to a blank page
         }
     }
