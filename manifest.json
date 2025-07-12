@@ -1,0 +1,22 @@
+{
+  "name": "Live TV",
+  "short_name": "LiveTV",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff0000",
+  "orientation": "portrait",
+  "description": "Watch live TV online!",
+  "icons": [
+    {
+      "src": "https://i.imgur.com/T1wfCxV.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.imgur.com/T1wfCxV.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
