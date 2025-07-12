@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TV Channels</title>
     <link rel="icon" href="https://i.imgur.com/T1wfCxV.png">
+    <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff0000">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/T1wfCxV.png">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('serviceWorker.js')
+        .then(() => console.log('✅ Service Worker Registered'));
+    }
     <script>
         // Set the session key to grant access
         sessionStorage.setItem('access_granted', 'true');
