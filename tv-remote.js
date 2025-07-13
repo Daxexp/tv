@@ -1,9 +1,12 @@
+// tv-remote.js (Full Enhanced Version)
+
 window.addEventListener("DOMContentLoaded", () => {
   const channels = Array.from(document.querySelectorAll(".channel"));
   if (!channels.length) return;
 
   let currentIndex = 0;
 
+  // === Inject style for glowing focus + TV dot fix ===
   const style = document.createElement("style");
   style.textContent = `
     body {
@@ -26,6 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 
+  // Make all focusable
   channels.forEach(el => el.setAttribute("tabindex", "-1"));
   document.body.setAttribute("tabindex", "-1");
   document.body.blur();
@@ -37,11 +41,7 @@ window.addEventListener("DOMContentLoaded", () => {
     currentIndex = index;
     channels[currentIndex].setAttribute("tabindex", "0");
     channels[currentIndex].focus();
-    channels[currentIndex].scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest"
-    });
+    channels[currentIndex].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }
 
   function findChannelInDirection(direction) {
@@ -129,8 +129,30 @@ window.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    // If direction key hit, move or loop
     if (nextIndex !== -1) {
       focusChannel(nextIndex);
+    } else {
+      if (e.key === "ArrowRight") focusChannel(0);
+      if (e.key === "ArrowLeft") focusChannel(channels.length - 1);
     }
   });
+
+  // === Lazy Load Thumbnails ===
+  const lazyImages = document.querySelectorAll('img.lazy-img');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.classList.remove('lazy-img');
+          observer.unobserve(img);
+        }
+      });
+    });
+    lazyImages.forEach(img => observer.observe(img));
+  } else {
+    lazyImages.forEach(img => (img.src = img.dataset.src));
+  }
 });
