@@ -5,22 +5,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
-  // Add CSS styling via JS
+  // Inject minimal focus style without touching your original CSS
   const style = document.createElement("style");
   style.textContent = `
-    .channel {
-      outline: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
     .channel:focus {
-      border: 3px solid #ffcc00 !important;
-      transform: scale(1.08);
-      box-shadow: 0 0 10px #ffcc00;
+      outline: 3px solid #ffcc00 !important;
     }
   `;
   document.head.appendChild(style);
 
-  // Ensure all .channel tiles are focusable
+  // Ensure all channels can receive focus
   channels.forEach(el => el.setAttribute("tabindex", "-1"));
 
   function focusChannel(index) {
@@ -33,7 +27,6 @@ window.addEventListener("DOMContentLoaded", () => {
     channels[currentIndex].setAttribute("tabindex", "0");
     channels[currentIndex].focus();
 
-    // Smooth scroll into view
     channels[currentIndex].scrollIntoView({
       behavior: "smooth",
       inline: "center",
@@ -41,17 +34,35 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Focus first tile
+  // Initial focus
   focusChannel(currentIndex);
 
-  // Handle remote key input
+  // Key handling
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") {
-      focusChannel(currentIndex + 1);
+      focusChannel(Math.min(currentIndex + 1, channels.length - 1));
     } else if (e.key === "ArrowLeft") {
-      focusChannel(currentIndex - 1);
+      focusChannel(Math.max(currentIndex - 1, 0));
     } else if (e.key === "Enter") {
-      channels[currentIndex].click();
+      // Try to get channel name from image alt, text, or data attribute
+      const el = channels[currentIndex];
+      let channelName = "";
+
+      // Priority: data-channel, h2 text, img alt
+      if (el.dataset.channel) {
+        channelName = el.dataset.channel;
+      } else if (el.querySelector("h2")) {
+        channelName = el.querySelector("h2").textContent.trim();
+      } else if (el.querySelector("img")?.alt) {
+        channelName = el.querySelector("img").alt.trim();
+      }
+
+      if (channelName) {
+        const encoded = encodeURIComponent(channelName);
+        window.location.href = `player.html?channel=${encoded}`;
+      } else {
+        alert("No channel name found!");
+      }
     }
   });
 });
