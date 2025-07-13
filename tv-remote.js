@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
-  // Inject focus + glow + Android TV fix
+  // Inject glowing focus + Android TV fix
   const style = document.createElement("style");
   style.textContent = `
     body {
@@ -27,12 +27,16 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 
-  // Ensure focusable
+  // Make all focusable
   channels.forEach(el => el.setAttribute("tabindex", "-1"));
 
+  // Remove Android TV cursor dot
+  document.body.setAttribute("tabindex", "-1");
+  document.body.blur();
+
+  // Focus helper
   function focusChannel(index) {
     if (index < 0 || index >= channels.length) return;
-
     channels[currentIndex].blur();
     channels[currentIndex].setAttribute("tabindex", "-1");
 
@@ -47,15 +51,23 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Auto blur dot cursor
-  document.body.setAttribute("tabindex", "-1");
-  document.body.blur();
+  focusChannel(currentIndex); // Initial
 
-  // Initial focus
-  focusChannel(currentIndex);
+  // Calculate how many items per row visually
+  function getRowSize() {
+    if (channels.length < 2) return 1;
+
+    const firstTop = channels[0].getBoundingClientRect().top;
+    for (let i = 1; i < channels.length; i++) {
+      if (channels[i].getBoundingClientRect().top !== firstTop) {
+        return i;
+      }
+    }
+    return channels.length; // all in one row
+  }
 
   document.addEventListener("keydown", (e) => {
-    const rowSize = 3; // Adjust if your layout has more/less per row
+    const rowSize = getRowSize();
 
     switch (e.key) {
       case "ArrowRight":
@@ -91,7 +103,6 @@ window.addEventListener("DOMContentLoaded", () => {
         break;
       }
       case "Backspace":
-        // Go to home/index page
         window.location.href = "index.html";
         break;
     }
