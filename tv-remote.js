@@ -4,7 +4,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
-  // Inject glowing focus + Android TV fix
   const style = document.createElement("style");
   style.textContent = `
     body {
@@ -27,23 +26,17 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 
-  // Make all focusable
   channels.forEach(el => el.setAttribute("tabindex", "-1"));
-
-  // Remove Android TV cursor dot
   document.body.setAttribute("tabindex", "-1");
   document.body.blur();
 
-  // Focus helper
   function focusChannel(index) {
     if (index < 0 || index >= channels.length) return;
     channels[currentIndex].blur();
     channels[currentIndex].setAttribute("tabindex", "-1");
-
     currentIndex = index;
     channels[currentIndex].setAttribute("tabindex", "0");
     channels[currentIndex].focus();
-
     channels[currentIndex].scrollIntoView({
       behavior: "smooth",
       inline: "center",
@@ -51,36 +44,65 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  focusChannel(currentIndex); // Initial
+  function findChannelInDirection(direction) {
+    const current = channels[currentIndex];
+    const currentRect = current.getBoundingClientRect();
 
-  // Calculate how many items per row visually
-  function getRowSize() {
-    if (channels.length < 2) return 1;
+    let bestIndex = -1;
+    let minDistance = Infinity;
 
-    const firstTop = channels[0].getBoundingClientRect().top;
-    for (let i = 1; i < channels.length; i++) {
-      if (channels[i].getBoundingClientRect().top !== firstTop) {
-        return i;
+    for (let i = 0; i < channels.length; i++) {
+      if (i === currentIndex) continue;
+      const rect = channels[i].getBoundingClientRect();
+
+      let valid = false;
+      let dist = Infinity;
+
+      switch (direction) {
+        case "up":
+          valid = rect.bottom <= currentRect.top;
+          dist = Math.hypot(rect.left - currentRect.left, rect.bottom - currentRect.top);
+          break;
+        case "down":
+          valid = rect.top >= currentRect.bottom;
+          dist = Math.hypot(rect.left - currentRect.left, rect.top - currentRect.bottom);
+          break;
+        case "left":
+          valid = rect.right <= currentRect.left && Math.abs(rect.top - currentRect.top) < 50;
+          dist = currentRect.left - rect.right;
+          break;
+        case "right":
+          valid = rect.left >= currentRect.right && Math.abs(rect.top - currentRect.top) < 50;
+          dist = rect.left - currentRect.right;
+          break;
+      }
+
+      if (valid && dist < minDistance) {
+        bestIndex = i;
+        minDistance = dist;
       }
     }
-    return channels.length; // all in one row
+
+    return bestIndex;
   }
 
+  focusChannel(currentIndex);
+
   document.addEventListener("keydown", (e) => {
-    const rowSize = getRowSize();
+    let nextIndex = -1;
 
     switch (e.key) {
       case "ArrowRight":
-        focusChannel(Math.min(currentIndex + 1, channels.length - 1));
+        nextIndex = findChannelInDirection("right");
         break;
       case "ArrowLeft":
-        focusChannel(Math.max(currentIndex - 1, 0));
+        nextIndex = findChannelInDirection("left");
         break;
       case "ArrowDown":
-        focusChannel(Math.min(currentIndex + rowSize, channels.length - 1));
+        nextIndex = findChannelInDirection("down");
         break;
       case "ArrowUp":
-        focusChannel(Math.max(currentIndex - rowSize, 0));
+        nextIndex = findChannelInDirection("up");
         break;
       case "Enter": {
         const el = channels[currentIndex];
@@ -100,11 +122,15 @@ window.addEventListener("DOMContentLoaded", () => {
         } else {
           alert("No channel name found!");
         }
-        break;
+        return;
       }
       case "Backspace":
         window.location.href = "index.html";
-        break;
+        return;
+    }
+
+    if (nextIndex !== -1) {
+      focusChannel(nextIndex);
     }
   });
 });
