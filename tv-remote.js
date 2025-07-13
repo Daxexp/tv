@@ -4,21 +4,24 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
-  // Inject styling (including fix for Android TV dot cursor)
+  // Inject CSS to hide the default focus outline and caret cursor aggressively
   const style = document.createElement("style");
   style.textContent = `
-    body {
+    /* Hide blinking caret and outline on body */
+    body, html {
       caret-color: transparent !important;
       outline: none !important;
     }
-    *:focus-visible {
+    /* Remove default focus ring for all elements */
+    *:focus {
       outline: none !important;
     }
+    /* Your glowing focus style */
     .channel {
       outline: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .channel:focus {
+    .channel:focus-visible, .channel:focus {
       transform: scale(1.08);
       box-shadow: 0 0 15px #ff0000, 0 0 20px #ff0000;
       border-radius: 10px;
@@ -27,22 +30,23 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 
-  // Ensure all .channel cards are focusable
+  // Prevent any browser cursor by hiding focus on body and html
+  document.body.setAttribute("tabindex", "-1");
+  document.body.blur();
+  document.documentElement.setAttribute("tabindex", "-1");
+
   channels.forEach(el => el.setAttribute("tabindex", "-1"));
 
   function focusChannel(index) {
     if (index < 0 || index >= channels.length) return;
 
-    // Remove focus from previous
     channels[currentIndex].blur();
     channels[currentIndex].setAttribute("tabindex", "-1");
 
-    // Focus new
     currentIndex = index;
     channels[currentIndex].setAttribute("tabindex", "0");
     channels[currentIndex].focus();
 
-    // Smooth scroll into view
     channels[currentIndex].scrollIntoView({
       behavior: "smooth",
       inline: "center",
@@ -50,14 +54,8 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Force blur on body to prevent Android TV dot cursor
-  document.body.setAttribute("tabindex", "-1");
-  document.body.blur();
-
-  // Initial focus
   focusChannel(currentIndex);
 
-  // Handle remote/keyboard input
   document.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "ArrowRight":
@@ -70,7 +68,6 @@ window.addEventListener("DOMContentLoaded", () => {
         const el = channels[currentIndex];
         let channelName = "";
 
-        // Get channel name from data, h2, or img alt
         if (el.dataset.channel) {
           channelName = el.dataset.channel;
         } else if (el.querySelector("h2")) {
