@@ -4,9 +4,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
-  // ✅ Inject your original glow + scale focus style
+  // Inject styling (including fix for Android TV dot cursor)
   const style = document.createElement("style");
   style.textContent = `
+    body {
+      caret-color: transparent !important;
+      outline: none !important;
+    }
+    *:focus-visible {
+      outline: none !important;
+    }
     .channel {
       outline: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -20,20 +27,22 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 
-  // Make all channels focusable
+  // Ensure all .channel cards are focusable
   channels.forEach(el => el.setAttribute("tabindex", "-1"));
 
   function focusChannel(index) {
     if (index < 0 || index >= channels.length) return;
 
+    // Remove focus from previous
     channels[currentIndex].blur();
     channels[currentIndex].setAttribute("tabindex", "-1");
 
+    // Focus new
     currentIndex = index;
     channels[currentIndex].setAttribute("tabindex", "0");
     channels[currentIndex].focus();
 
-    // Scroll into view
+    // Smooth scroll into view
     channels[currentIndex].scrollIntoView({
       behavior: "smooth",
       inline: "center",
@@ -41,9 +50,14 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Force blur on body to prevent Android TV dot cursor
+  document.body.setAttribute("tabindex", "-1");
+  document.body.blur();
+
   // Initial focus
   focusChannel(currentIndex);
 
+  // Handle remote/keyboard input
   document.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "ArrowRight":
@@ -52,10 +66,11 @@ window.addEventListener("DOMContentLoaded", () => {
       case "ArrowLeft":
         focusChannel(Math.max(currentIndex - 1, 0));
         break;
-      case "Enter": {
+      case "Enter":
         const el = channels[currentIndex];
         let channelName = "";
 
+        // Get channel name from data, h2, or img alt
         if (el.dataset.channel) {
           channelName = el.dataset.channel;
         } else if (el.querySelector("h2")) {
@@ -71,7 +86,6 @@ window.addEventListener("DOMContentLoaded", () => {
           alert("No channel name found!");
         }
         break;
-      }
     }
   });
 });
