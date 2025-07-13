@@ -3,9 +3,8 @@ window.addEventListener("DOMContentLoaded", () => {
   if (!channels.length) return;
 
   let currentIndex = 0;
-  const itemsPerRow = 4; // 🔧 Adjust this if your layout shows 3, 5, etc. per row
 
-  // Inject style (neon focus + Android TV fix)
+  // Inject focus + glow + Android TV fix
   const style = document.createElement("style");
   style.textContent = `
     body {
@@ -28,6 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(style);
 
+  // Ensure focusable
   channels.forEach(el => el.setAttribute("tabindex", "-1"));
 
   function focusChannel(index) {
@@ -47,48 +47,53 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Prevent Android TV dot
+  // Auto blur dot cursor
   document.body.setAttribute("tabindex", "-1");
   document.body.blur();
 
+  // Initial focus
   focusChannel(currentIndex);
 
   document.addEventListener("keydown", (e) => {
-    const key = e.key;
+    const rowSize = 3; // Adjust if your layout has more/less per row
 
-    if (key === "ArrowRight") {
-      focusChannel(Math.min(currentIndex + 1, channels.length - 1));
-    } else if (key === "ArrowLeft") {
-      focusChannel(Math.max(currentIndex - 1, 0));
-    } else if (key === "ArrowUp") {
-      focusChannel(Math.max(currentIndex - itemsPerRow, 0));
-    } else if (key === "ArrowDown") {
-      focusChannel(Math.min(currentIndex + itemsPerRow, channels.length - 1));
-    } else if (key === "Enter") {
-      const el = channels[currentIndex];
-      let channelName = "";
+    switch (e.key) {
+      case "ArrowRight":
+        focusChannel(Math.min(currentIndex + 1, channels.length - 1));
+        break;
+      case "ArrowLeft":
+        focusChannel(Math.max(currentIndex - 1, 0));
+        break;
+      case "ArrowDown":
+        focusChannel(Math.min(currentIndex + rowSize, channels.length - 1));
+        break;
+      case "ArrowUp":
+        focusChannel(Math.max(currentIndex - rowSize, 0));
+        break;
+      case "Enter": {
+        const el = channels[currentIndex];
+        let channelName = "";
 
-      if (el.dataset.channel) {
-        channelName = el.dataset.channel;
-      } else if (el.querySelector("h2")) {
-        channelName = el.querySelector("h2").textContent.trim();
-      } else if (el.querySelector("img")?.alt) {
-        channelName = el.querySelector("img").alt.trim();
-      }
+        if (el.dataset.channel) {
+          channelName = el.dataset.channel;
+        } else if (el.querySelector("h2")) {
+          channelName = el.querySelector("h2").textContent.trim();
+        } else if (el.querySelector("img")?.alt) {
+          channelName = el.querySelector("img").alt.trim();
+        }
 
-      if (channelName) {
-        const encoded = encodeURIComponent(channelName);
-        window.location.href = `player.html?channel=${encoded}`;
-      } else {
-        alert("No channel name found!");
+        if (channelName) {
+          const encoded = encodeURIComponent(channelName);
+          window.location.href = `player.html?channel=${encoded}`;
+        } else {
+          alert("No channel name found!");
+        }
+        break;
       }
-    } else if (key === "Backspace") {
-      window.history.back();
-    } else if (key.toLowerCase() === "m") {
-      const video = document.querySelector("video");
-      if (video) {
-        video.muted = !video.muted;
-      }
+      case "Backspace":
+        // Go to home/index page
+        window.location.href = "index.html";
+        break;
     }
   });
 });
