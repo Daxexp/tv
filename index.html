@@ -1,122 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>TV Channels</title>
-
-<link rel="icon" href="https://i.imgur.com/T1wfCxV.png">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff0000">
-<link rel="apple-touch-icon" href="https://i.imgur.com/T1wfCxV.png">
-
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('serviceWorker.js')
-    .then(() => console.log('✅ Service Worker Registered'));
-}
-
-// Grant access
-sessionStorage.setItem('access_granted', 'true');
-</script>
-    
-/* --- YOUR ORIGINAL STYLES REMAIN EXACTLY SAME --- */
-/* (I did not remove or modify your existing UI css) */
-<style> body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #ffffff; transition: background-color 0.5s ease, color 0.5s ease; overflow-x: hidden; user-select: none; } .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; padding-top: 60px; } .bar { width: 100%; background-color: #ffffff; color: #121212; border-bottom: 2px solid #ff0000; padding: 10px 0; text-align: center; font-size: 1.5rem; font-weight: bold; position: fixed; top: 0; left: 0; z-index: 1000; transition: background-color 0.5s ease, color 0.5s ease; } .theme-toggle { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); display: flex; align-items: center; cursor: pointer; } .theme-toggle input { display: none; } .switch { display: inline-block; width: 60px; height: 34px; background-color: #ccc; border-radius: 34px; position: relative; transition: background-color 0.3s; } .switch::before { content: ''; position: absolute; top: 2px; left: 2px; width: 30px; height: 30px; background-color: #ffffff; border-radius: 50%; transition: transform 0.3s; } input:checked + .switch { background-color: #4CAF50; } input:checked + .switch::before { transform: translateX(26px); } .emoji { margin-left: 10px; font-size: 24px; } .channels { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; } .channel { background-color: #1e1e1e; border-radius: 10px; overflow: hidden; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; } .channel:hover { transform: scale(1.08); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); } .channel img { width: 100%; height: auto; } .channel h2 { margin: 10px 0; } .channel .play-button { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(255, 0, 0, 0.7); border: none; border-radius: 50%; cursor: pointer; color: white; font-size: 24px; line-height: 50px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); transition: opacity 0.5s, transform 0.5s, box-shadow 0.5s; opacity: 0; } .channel:hover .play-button { display: block; transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); opacity: 1; } .footer { text-align: center; padding: 20px 0; margin-top: 20px; } .footer p { margin: 0; } .player-section { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: rgba(0, 0, 0, 0.8); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; } .back-button { position: absolute; top: 20px; left: 20px; background-color: #ffffff; color: #121212; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background-color 0.3s, color 0.3s; } .back-button:hover { background-color: #ff0000; color: #ffffff; } .player { width: 80%; max-width: 800px; height: 450px; background-color: #000; } .light-mode { background-color: #f0f0f0 !important; color: #333 !important; } .light-mode .container { background-color: transparent; } .light-mode .bar { background-color: #000000; color: #ffffff; } .light-mode .channel { background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); } .light-mode .channel:hover { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); } .light-mode .footer { color: #666; } .light-mode .theme-toggle .switch { background-color: #ccc; } .light-mode .theme-toggle input:checked + .switch { background-color: #4CAF50; } .light-mode .theme-toggle input:checked + .switch::before { background-color: #ffffff; } .light-mode .player-section { background-color: rgba(255, 255, 255, 0.8); } .light-mode .back-button { background-color: #000000; color: #ffffff; } .light-mode .back-button:hover { background-color: #ff0000; color: #ffffff; } @media (max-width: 768px) { .channel { width: 45%; } .player { width: 95%; height: auto; } .back-button { width: 80px; font-size: 14px; padding: 8px 16px; } } @media (max-width: 480px) { .channel { width: 100px; } .channel h2 { font-size: 14px; } .channel .play-button { width: 30px; height: 30px; font-size: 16px; line-height: 30px; } .player { width: 100%; height: auto; } .back-button { width: 60px; font-size: 12px; padding: 6px 12px; } .bar { font-size: 1.2rem; } .switch { width: 40px; height: 20px; } .switch::before { width: 18px; height: 18px; } .emoji { font-size: 18px; margin-left: 5px; } } </style>
-
-/* ✅ YouTube Style Chromecast Button */
-#castContainer {
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  z-index: 99999;
-  display: none; /* Hide until Chromecast available */
-}
-
-google-cast-launcher#castButton {
-  width: 34px;
-  height: 34px;
-  cursor: pointer;
-  filter: invert(100%); /* white icon */
-  opacity: 0.85;
-  transition: opacity .3s;
-}
-
-google-cast-launcher#castButton:hover {
-  opacity: 1;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TV Channels</title>
+    <link rel="icon" href="https://i.imgur.com/T1wfCxV.png">
+    <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff0000">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/T1wfCxV.png">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('serviceWorker.js')
+        .then(() => console.log('✅ Service Worker Registered'));
+    }
+    <script>
+        // Set the session key to grant access
+        sessionStorage.setItem('access_granted', 'true');
+    </script>
+    <style> body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #ffffff; transition: background-color 0.5s ease, color 0.5s ease; overflow-x: hidden; user-select: none; } .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; padding-top: 60px; } .bar { width: 100%; background-color: #ffffff; color: #121212; border-bottom: 2px solid #ff0000; padding: 10px 0; text-align: center; font-size: 1.5rem; font-weight: bold; position: fixed; top: 0; left: 0; z-index: 1000; transition: background-color 0.5s ease, color 0.5s ease; } .theme-toggle { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); display: flex; align-items: center; cursor: pointer; } .theme-toggle input { display: none; } .switch { display: inline-block; width: 60px; height: 34px; background-color: #ccc; border-radius: 34px; position: relative; transition: background-color 0.3s; } .switch::before { content: ''; position: absolute; top: 2px; left: 2px; width: 30px; height: 30px; background-color: #ffffff; border-radius: 50%; transition: transform 0.3s; } input:checked + .switch { background-color: #4CAF50; } input:checked + .switch::before { transform: translateX(26px); } .emoji { margin-left: 10px; font-size: 24px; } .channels { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; } .channel { background-color: #1e1e1e; border-radius: 10px; overflow: hidden; width: 200px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; } .channel:hover { transform: scale(1.08); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); } .channel img { width: 100%; height: auto; } .channel h2 { margin: 10px 0; } .channel .play-button { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(255, 0, 0, 0.7); border: none; border-radius: 50%; cursor: pointer; color: white; font-size: 24px; line-height: 50px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); transition: opacity 0.5s, transform 0.5s, box-shadow 0.5s; opacity: 0; } .channel:hover .play-button { display: block; transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); opacity: 1; } .footer { text-align: center; padding: 20px 0; margin-top: 20px; } .footer p { margin: 0; } .player-section { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: rgba(0, 0, 0, 0.8); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; } .back-button { position: absolute; top: 20px; left: 20px; background-color: #ffffff; color: #121212; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background-color 0.3s, color 0.3s; } .back-button:hover { background-color: #ff0000; color: #ffffff; } .player { width: 80%; max-width: 800px; height: 450px; background-color: #000; } .light-mode { background-color: #f0f0f0 !important; color: #333 !important; } .light-mode .container { background-color: transparent; } .light-mode .bar { background-color: #000000; color: #ffffff; } .light-mode .channel { background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); } .light-mode .channel:hover { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); } .light-mode .footer { color: #666; } .light-mode .theme-toggle .switch { background-color: #ccc; } .light-mode .theme-toggle input:checked + .switch { background-color: #4CAF50; } .light-mode .theme-toggle input:checked + .switch::before { background-color: #ffffff; } .light-mode .player-section { background-color: rgba(255, 255, 255, 0.8); } .light-mode .back-button { background-color: #000000; color: #ffffff; } .light-mode .back-button:hover { background-color: #ff0000; color: #ffffff; } @media (max-width: 768px) { .channel { width: 45%; } .player { width: 95%; height: auto; } .back-button { width: 80px; font-size: 14px; padding: 8px 16px; } } @media (max-width: 480px) { .channel { width: 100px; } .channel h2 { font-size: 14px; } .channel .play-button { width: 30px; height: 30px; font-size: 16px; line-height: 30px; } .player { width: 100%; height: auto; } .back-button { width: 60px; font-size: 12px; padding: 6px 12px; } .bar { font-size: 1.2rem; } .switch { width: 40px; height: 20px; } .switch::before { width: 18px; height: 18px; } .emoji { font-size: 18px; margin-left: 5px; } } </style>
 </head>
-
 <body>
-
-<!-- ✅ CAST BUTTON -->
-<div id="castContainer">
-  <google-cast-launcher id="castButton"></google-cast-launcher>
-</div>
-
-<!-- ✅ Your Page UI is generated by JS -->
+    <!-- The content will be dynamically generated by the JavaScript file -->
 <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"></script>
-<script src="ui.js"></script>
-<script src="info.js"></script>
-<script src="tv.js"></script>
+    <script src="ui.js"></script>
+    <script src="info.js"></script>
+    <script src="tv.js"></script>
 <script src="tv-remote.js"></script>
-
-<!-- ✅ Google Cast Sender SDK -->
 <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-
-<!-- ✅ CAST SCRIPT -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  const castContainer = document.getElementById("castContainer");
-  const context = cast.framework.CastContext.getInstance();
-
-  // Hide button until cast device is available
-  castContainer.style.display = "none";
-
-  context.setOptions({
-    receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-    autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-  });
-
-  // Show cast button only when Chromecast is detected
-  context.addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, (event) => {
-    if (event.castState !== cast.framework.CastState.NO_DEVICES_AVAILABLE) {
-      castContainer.style.display = "block";
-    } else {
-      castContainer.style.display = "none";
-    }
-  });
-
-  let video = document.querySelector("video");
-
-  // Automatically detect currently playing stream
-  function getCurrentStreamURL() {
-    if (window.hls && hls.url) return hls.url; // hls.js
-    if (video && video.src) return video.src; // fallback
-    return null;
-  }
-
-  // When casting starts, play same stream on TV
-  context.addEventListener(cast.framework.CastContextEventType.SESSION_STATE_CHANGED, (event) => {
-    if (event.sessionState === cast.framework.SessionState.SESSION_STARTED) {
-
-      const url = getCurrentStreamURL();
-      if (!url) return;
-
-      const session = context.getCurrentSession();
-      const mediaInfo = new chrome.cast.media.MediaInfo(url, "application/x-mpegURL");
-      const request = new chrome.cast.media.LoadRequest(mediaInfo);
-
-      session.loadMedia(request).then(() => {
-        if (video) video.pause(); // Stop local playback
-        console.log("📺 Casting:", url);
-      });
-    }
-  });
-});
-</script>
-
 </body>
 </html>
+
+
