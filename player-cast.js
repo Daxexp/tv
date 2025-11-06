@@ -1,44 +1,42 @@
-// Load Chromecast Sender API
 (function() {
   const s = document.createElement("script");
   s.src = "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1";
   document.head.appendChild(s);
 })();
 
-// Wait for video to appear
-window.addEventListener("load", () => {
+window.__onGCastApiAvailable = function(isAvailable) {
+  if (!isAvailable) return;
 
-  function getVideo() {
-    const video = document.querySelector("video");
-    if (!video) return setTimeout(getVideo, 400);
-    setupCasting(video);
-  }
+  const context = cast.framework.CastContext.getInstance();
+  context.setOptions({
+    receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+    autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+  });
 
-  getVideo();
+  console.log("✅ Chromecast Ready");
+};
 
-  function setupCasting(video) {
-    console.log("🎥 Player detected -> Ready for Chromecast");
+function enableVideoJsCasting(player) {
+  player.on("play", function () {
+    const stream = player.currentSource().src;
+    if (!stream.includes(".m3u8")) return;
 
-    window.__onGCastApiAvailable = function(isAvailable) {
-      if (!isAvailable) return;
+    const context = cast.framework.CastContext.getInstance();
+    const mediaInfo = new chrome.cast.media.MediaInfo(stream, "application/x-mpegURL");
+    const request = new chrome.cast.media.LoadRequest(mediaInfo);
 
-      const ctx = cast.framework.CastContext.getInstance();
-      ctx.setOptions({
-        receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-      });
+    context.requestSession()
+      .then(() => context.getCurrentSession()?.loadMedia(request))
+      .catch(err => console.warn("Cast Failed:", err));
+  });
+}
 
-      video.addEventListener("play", () => {
-        const streamUrl = video.currentSrc;
-        if (!streamUrl || !streamUrl.includes(".m3u8")) return;
-
-        const mediaInfo = new chrome.cast.media.MediaInfo(streamUrl, "application/x-mpegURL");
-        const request = new chrome.cast.media.LoadRequest(mediaInfo);
-
-        ctx.requestSession()
-          .then(() => ctx.getCurrentSession()?.loadMedia(request))
-          .catch(err => console.warn("Cast Request Failed:", err));
-      });
-    };
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const check = setInterval(() => {
+    if (window.videojs && videojs.getAllPlayers().length > 0) {
+      clearInterval(check);
+      const player = videojs.getAllPlayers()[0];
+      enableVideoJsCasting(player);
+    }
+  }, 500);
 });
