@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Live Stream (JW Player)</title>
 
-  <!-- JW Player library (example key/library from your sample) -->
+  <!-- JW Player library -->
   <script src="https://cdn.jwplayer.com/libraries/1uritdb6.js"></script>
   <script>
+    // example key from your sample
     jwplayer.key = "jTL7dlu7ybUI5NZnDdVgb1laM8/Hj3ftIJ5Vqg==";
   </script>
 
@@ -30,6 +31,10 @@
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 20px;
+      text-align: center;
+      word-break: break-word;
+      width: 90%;
+      max-width: 1000px;
     }
     .video-container {
       width: 90%;
@@ -105,6 +110,13 @@
       background-color: rgba(255, 0, 0, 0.7);
       color: #ffffff;
     }
+
+    /* error message styling */
+    .error-msg {
+      color: #f88;
+      padding: 1rem;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -124,6 +136,16 @@
   </div>
 
   <script>
+    // Theme toggle with persistence
+    (function restoreTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.getElementById('theme-switch').checked = true;
+        document.body.classList.add('light-mode');
+        document.querySelector('.theme-toggle .emoji').textContent = '☀️';
+      }
+    })();
+
     function toggleTheme() {
       const body = document.body;
       const emoji = document.querySelector('.theme-toggle .emoji');
@@ -131,46 +153,80 @@
       if (isLightMode) {
         body.classList.add('light-mode');
         emoji.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
       } else {
         body.classList.remove('light-mode');
         emoji.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
       }
     }
 
-            // Get channel name and stream URL from the URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const channelName = urlParams.get('channel');
-        const streamURL = urlParams.get('stream');
+    // Get channel name and stream URL from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const channelName = urlParams.get('channel') || 'Unknown Channel';
+    const streamURL = urlParams.get('stream') || '';
 
-        // Set the channel name and stream URL
-        document.getElementById('channelName').textContent = channelName;
-        document.getElementById('streamSource').src = streamURL;
+    // Set channel name safely
+    document.getElementById('channelName').textContent = channelName;
 
-    // Simple URL validation
-    function isValidHttpUrl(string) {
+    // Debugging output to console to help trace problems
+    console.log('Player page URL:', window.location.href);
+    console.log('Parsed params:', Object.fromEntries(urlParams.entries()));
+    console.log('stream param value:', streamURL);
+
+    // Simple URL validation (accept http(s) and protocol-relative URLs)
+    function isValidStreamUrl(s) {
+      if (!s) return false;
       try {
-        const url = new URL(string);
-        return url.protocol === "http:" || url.protocol === "https:";
-      } catch (_) {
+        // allow protocol-relative URLs (//example...) by prepending https:
+        const candidate = s.startsWith('//') ? 'https:' + s : s;
+        const url = new URL(candidate);
+        return (url.protocol === 'http:' || url.protocol === 'https:');
+      } catch (e) {
         return false;
       }
     }
 
-    // Initialize JW Player if stream is valid
-    if (streamURL && isValidHttpUrl(streamURL)) {
-      // Setup JW Player with streaming URL from query param
-      jwplayer("videoPlayer").setup({
-        file: streamURL,
-        width: "100%",
-        aspectratio: "16:9",
-        autostart: true,
-        mute: false,
-        stretching: "uniform"
-      });
-    } else {
-      // Show friendly error if no valid stream provided
+    // Initialize JW Player if stream is valid and jwplayer is available
+    if (!streamURL) {
       document.querySelector('.video-container').innerHTML =
-        '<div style="color:#f88; padding:1rem; text-align:center;">No valid stream URL provided. Use ?stream=https://...&channel=Name</div>';
+        '<div class="error-msg">No stream parameter provided. Use ?stream=https://...&channel=Name</div>';
+    } else if (!isValidStreamUrl(streamURL)) {
+      document.querySelector('.video-container').innerHTML =
+        '<div class="error-msg">Invalid stream URL. Ensure it starts with https:// (URL-encode special characters).</div>';
+    } else if (typeof jwplayer === 'undefined') {
+      document.querySelector('.video-container').innerHTML =
+        '<div class="error-msg">JW Player library failed to load. Check network or include the JW library script.</div>';
+      console.error('jwplayer is not defined — library did not load.');
+    } else {
+      // All good: setup JW Player
+      try {
+        // Use the exact stream passed via query param (protocol-relative handled by jwplayer)
+        jwplayer("videoPlayer").setup({
+          file: streamURL,
+          width: "100%",
+          aspectratio: "16:9",
+          autostart: true,   // note: many browsers block autoplay with sound
+          mute: false,
+          stretching: "uniform"
+        });
+
+        // Add basic JW Player event handlers for debugging & errors
+        jwplayer("videoPlayer").on('ready', function() {
+          console.log('JW Player ready, attempting autostart.');
+        });
+        jwplayer("videoPlayer").on('error', function(err) {
+          console.error('JW Player error:', err);
+          // show friendly error in UI
+          const msg = err && err.message ? err.message : 'Playback error';
+          document.querySelector('.video-container').innerHTML =
+            '<div class="error-msg">Playback error: ' + msg + '</div>';
+        });
+      } catch (e) {
+        console.error('Exception while setting up JW Player:', e);
+        document.querySelector('.video-container').innerHTML =
+          '<div class="error-msg">Failed to initialize player. See console for details.</div>';
+      }
     }
 
     // Disable right-click (mild deterrent only)
@@ -192,4 +248,3 @@
   <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"></script>
 </body>
 </html>
-
