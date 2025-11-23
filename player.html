@@ -137,12 +137,14 @@
       }
     }
 
-    // Read channel and stream from URL params
-    const urlParams = new URLSearchParams(window.location.search);
-    const channelName = urlParams.get('channel') || '';
-    const streamURL = urlParams.get('stream') || '';
+            // Get channel name and stream URL from the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const channelName = urlParams.get('channel');
+        const streamURL = urlParams.get('stream');
 
-    document.getElementById('channelName').textContent = channelName;
+        // Set the channel name and stream URL
+        document.getElementById('channelName').textContent = channelName;
+        document.getElementById('streamSource').src = streamURL;
 
     // Simple URL validation
     function isValidHttpUrl(string) {
@@ -190,3 +192,4 @@
   <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"></script>
 </body>
 </html>
+
