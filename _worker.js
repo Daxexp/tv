@@ -19,8 +19,7 @@ export default {
         <html>
           <head><title>Access Denied</title></head>
           <body style="background:#131a36;color:#fff;text-align:center;padding-top:20%;">
-            <h1>Access Restricted</h1>
-            <p>You are not allowed to view this site</p>
+            <h1>Access Restricted</h1><p>You are not allowed to view this site</p>
           </body>
         </html>
         `,
