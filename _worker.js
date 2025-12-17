@@ -1,18 +1,14 @@
 export default {
   async fetch(request, env) {
-    // 1. Get real client IP & country from Cloudflare
     const clientIP = request.headers.get("CF-Connecting-IP");
     const country  = request.headers.get("CF-IPCountry");
 
-    // 2. Read blocked IPs from Cloudflare environment variable
     const blockedIPs = (env.BLOCKED_IPS || "")
       .split(",")
       .map(ip => ip.trim())
       .filter(Boolean);
 
-    // 3. Block logic:
-    // - If NOT Sri Lanka → block
-    // - If Sri Lanka BUT IP is blocked → block
+    // BLOCK logic
     if (country !== "LK" || blockedIPs.includes(clientIP)) {
       return new Response(
         `
@@ -25,12 +21,24 @@ export default {
         `,
         {
           status: 403,
-          headers: { "Content-Type": "text/html" },
+          headers: {
+            "Content-Type": "text/html",
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+            "Pragma": "no-cache",
+            "Expires": "0"
+          },
         }
       );
     }
 
-    // 4. Allowed users → serve site normally
-    return env.ASSETS.fetch(request);
+    // ALSO disable caching for allowed users
+    const response = await env.ASSETS.fetch(request);
+    return new Response(response.body, {
+      status: response.status,
+      headers: {
+        ...Object.fromEntries(response.headers),
+        "Cache-Control": "no-store"
+      }
+    });
   },
 };
