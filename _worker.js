@@ -5,7 +5,7 @@ export default {
     const country  = request.headers.get("CF-IPCountry");
 
     // 2. Read blocked IPs from Cloudflare environment variable
-    const blockedIPs = (env.BLOCKED_IPS || "")
+    const blockedIPs = (env.BLOCKED_IPS || "212.104.231.199")
       .split(",")
       .map(ip => ip.trim())
       .filter(Boolean);
