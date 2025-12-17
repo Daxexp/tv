@@ -8,14 +8,18 @@ export default {
       .map(ip => ip.trim())
       .filter(Boolean);
 
-    // BLOCK logic
-    if (country !== "LK" || blockedIPs.includes(clientIP)) {
+    // Allowed countries: Sri Lanka (LK) and Singapore (SG)
+    const allowedCountries = ["LK", "SG"];
+
+    // BLOCK if not in allowed countries OR IP is in blocked list
+    if (!allowedCountries.includes(country) || blockedIPs.includes(clientIP)) {
       return new Response(
         `
         <html>
           <head><title>Access Denied</title></head>
           <body style="background:#131a36;color:#fff;text-align:center;padding-top:20%;">
-            <h1>Access Restricted</h1><p>You are not allowed to view this site</p>
+            <h1>Access Restricted</h1>
+            <p>You are not allowed to view this site</p>
           </body>
         </html>
         `,
