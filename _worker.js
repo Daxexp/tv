@@ -1,26 +1,26 @@
 export default {
   async fetch(request, env) {
-    // 1. Get the visitor's real IP address from Cloudflare
+    // 1. Get real client IP & country from Cloudflare
     const clientIP = request.headers.get("CF-Connecting-IP");
+    const country  = request.headers.get("CF-IPCountry");
 
-    // 2. Read the blocked IP list from environment variables
-    const blockedListRaw = env.BLOCKED_IPS || "";
-
-    // 3. Convert comma-separated list into an array
-    const blockedIPs = blockedListRaw
+    // 2. Read blocked IPs from Cloudflare environment variable
+    const blockedIPs = (env.BLOCKED_IPS || "")
       .split(",")
       .map(ip => ip.trim())
       .filter(Boolean);
 
-    // 4. If visitor IP is blocked → deny access
-    if (blockedIPs.includes(clientIP)) {
+    // 3. Block logic:
+    // - If NOT Sri Lanka → block
+    // - If Sri Lanka BUT IP is blocked → block
+    if (country !== "LK" || blockedIPs.includes(clientIP)) {
       return new Response(
         `
         <html>
-          <head><title>Access Denied</title></head>
+          <head><title>Access Restricted</title></head>
           <body style="background:#000;color:#fff;text-align:center;padding-top:20%;">
-            <h1>Access Denied</h1>
-            <p>You are not allowed to view this stream.</p>
+            <h1>Access Restricted</h1>
+            <p>This stream is available only in Sri Lanka.</p>
           </body>
         </html>
         `,
@@ -31,7 +31,7 @@ export default {
       );
     }
 
-    // 5. If allowed, serve site assets normally
+    // 4. Allowed users → serve site normally
     return env.ASSETS.fetch(request);
   },
 };
