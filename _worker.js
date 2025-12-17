@@ -19,8 +19,8 @@ export default {
         <html>
           <head><title>Access Restricted</title></head>
           <body style="background:#000;color:#fff;text-align:center;padding-top:20%;">
-            <h1>Access Restricted</h1>
-            <p>This stream is available only in Sri Lanka.</p>
+            <h1>Access Denied</h1>
+            <p>You are not allowed to view this site.</p>"
           </body>
         </html>
         `,
